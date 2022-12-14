@@ -1,0 +1,20 @@
+# Python cache
+_pycache__
+*.py[cod]
+
+# PyCharm/Jupyter
+.idea
+.ipynb_checkpoints
+
+# build artifacts
+*.egg-info
+/docs/build/
+c++/cmake-build-release
+c++/cmake-build-debug
+
+# generated artifacts
+output
+imgui.ini
+
+# VSCode
+.vscode/
