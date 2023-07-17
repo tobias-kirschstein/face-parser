@@ -10,7 +10,7 @@ from torch import nn
 from face_parser.modules.FaceBoxesV2.detector import Detector
 from face_parser.modules.FaceBoxesV2.utils.box_utils import decode
 from face_parser.modules.FaceBoxesV2.utils.config import cfg
-from face_parser.modules.FaceBoxesV2.utils.faceboxes import FaceBoxesV2
+from face_parser.modules.FaceBoxesV2.utils.faceboxes import FaceBoxesV2Internal
 from face_parser.modules.FaceBoxesV2.utils.nms_wrapper import nms
 from face_parser.modules.FaceBoxesV2.utils.prior_box import PriorBox
 
@@ -45,7 +45,7 @@ class FaceBoxesDetector(Detector):
         super().__init__('FaceBoxes', ckpt_path)
 
         self.name = 'FaceBoxesDetector'
-        self.net = FaceBoxesV2(phase='test', size=None, num_classes=2)  # initialize detector
+        self.net = FaceBoxesV2Internal(phase='test', size=None, num_classes=2)  # initialize detector
         state_dict = torch.load(self.model_weights)
         # create new OrderedDict that does not contain `module.`
         from collections import OrderedDict

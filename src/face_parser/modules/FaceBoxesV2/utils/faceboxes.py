@@ -148,10 +148,10 @@ class FaceBoxes(nn.Module):
 
     return output
 
-class FaceBoxesV2(nn.Module):
+class FaceBoxesV2Internal(nn.Module):
 
   def __init__(self, phase, size, num_classes):
-    super(FaceBoxesV2, self).__init__()
+    super(FaceBoxesV2Internal, self).__init__()
     self.phase = phase
     self.num_classes = num_classes
     self.size = size

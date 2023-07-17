@@ -42,7 +42,7 @@ class custom_build_ext(build_ext):
 ext_modules = [
     Extension(
         "face_parser.modules.FaceBoxesV2.utils.nms.cpu_nms",
-        ["src/face_parser/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
+        ["face_parser/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
         extra_compile_args={'gcc': ["-Wno-cpp", "-Wno-unused-function"]},
         # extra_compile_args=["-Wno-cpp", "-Wno-unused-function"],
         include_dirs=[numpy_include]
