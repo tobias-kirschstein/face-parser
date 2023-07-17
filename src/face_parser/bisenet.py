@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 from pathlib import Path
+from typing import Dict
 
 import torch
 import torch.nn as nn
@@ -67,6 +68,28 @@ class BiSeNetFaceParser:
             segmentation_masks = segmentation_masks.squeeze(0)
 
         return segmentation_masks
+
+    @classmethod
+    def get_label_mapping(cls) -> Dict[int, str]:
+        return {0: 'background',
+                1: 'skin',
+                2: 'l_brow',
+                3: 'r_brow',
+                4: 'l_eye',
+                5: 'r_eye',
+                6: 'eye_g',
+                7: 'l_ear',
+                8: 'r_ear',
+                9: 'ear_r',
+                10: 'nose',
+                11: 'mouth',
+                12: 'u_lip',
+                13: 'l_lip',
+                14: 'neck',
+                15: 'neck_l',
+                16: 'cloth',
+                17: 'hair',
+                18: 'hat'}
 
 
 class ConvBNReLU(nn.Module):
