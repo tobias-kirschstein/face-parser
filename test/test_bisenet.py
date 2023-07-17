@@ -1,15 +1,12 @@
-from pathlib import Path
-from unittest import TestCase
-
 import torch
-from PIL import Image
-from torchvision import transforms
+from matplotlib import pyplot as plt
 
+from base import VisionTestCase
 from face_parser.bisenet import BiSeNetFaceParser
 from face_parser.visualize import apply_colormap
 
 
-class BiSeNetTest(TestCase):
+class BiSeNetTest(VisionTestCase):
 
     def test_parse(self):
         face_parser = BiSeNetFaceParser()
@@ -27,22 +24,10 @@ class BiSeNetTest(TestCase):
         self.assertEqual(segmentation_masks.shape[2], W)
 
     def test_real_image(self):
-        image = Image.open(f"{Path(__file__).parent.resolve()}/../test_img.png")
-        image = transforms.ToTensor()(image)
+        image = self._get_obama_image(keep_aspect_ratio=True, resize=512)
 
         with torch.no_grad():
             face_parser = BiSeNetFaceParser()
-
-            # to_tensor = transforms.Compose([
-            #     transforms.ToTensor(),
-            #     transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
-            # ])
-            #
-            # img = to_tensor(image)
-            # img = torch.unsqueeze(img, 0)
-            # img = img.cuda()
-            # out = face_parser._model(img)[0]
-            # segmentation_mask = out.squeeze(0).cpu().numpy().argmax(0)
 
             segmentation_mask = face_parser.parse(image)
             colormap = apply_colormap(segmentation_mask)
@@ -51,3 +36,5 @@ class BiSeNetTest(TestCase):
             self.assertEqual(colormap.shape[1], image.shape[2])
             self.assertEqual(colormap.shape[2], image.shape[0])
 
+            plt.imshow(0.5 * colormap / 255 + 0.5 * (image.permute(1, 2, 0).numpy() + 1) / 2)
+            plt.show()
