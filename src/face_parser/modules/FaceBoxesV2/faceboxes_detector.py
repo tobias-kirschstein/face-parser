@@ -46,7 +46,7 @@ class FaceBoxesDetector(Detector):
 
         self.name = 'FaceBoxesDetector'
         self.net = FaceBoxesV2Internal(phase='test', size=None, num_classes=2)  # initialize detector
-        state_dict = torch.load(self.model_weights)
+        state_dict = torch.load(self.model_weights, map_location=torch.device('cpu'))
         # create new OrderedDict that does not contain `module.`
         from collections import OrderedDict
         new_state_dict = OrderedDict()

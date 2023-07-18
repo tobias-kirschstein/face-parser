@@ -56,7 +56,7 @@ class PIPNet(nn.Module):
                              f"https://drive.google.com/drive/folders/1fz6UQR2TjGvQr4birwqVXusPp6tMAXxq and put it into "
                              f"{Path().home()}/.cache/torch/face-parser/PIPNet/")
 
-        state_dict = torch.load(weight_file)
+        state_dict = torch.load(weight_file, map_location=torch.device('cpu'))
         net.load_state_dict(state_dict)
 
         self._normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
