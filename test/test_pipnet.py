@@ -26,7 +26,7 @@ class PIPNetTest(VisionTestCase):
         landmarks = pip_net.forward(img, detected_bboxes[0])
 
         for x, y in landmarks:
-            cv2.circle(img, (int(x), int(y)), 5, (255, 0, 0), -1)
+            cv2.circle(img, (int(x), int(y)), 10, (255, 0, 0), -1)
 
         plt.imshow(img)
         plt.show()

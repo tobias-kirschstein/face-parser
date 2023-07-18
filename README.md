@@ -3,6 +3,9 @@
 ## 1. Face Segmentation
 
 ### 1.1. BiSeNet
+
+![](images/obama_bisenet.jpg)
+
 ```python
 from face_parser.bisenet import BiSeNetFaceParser
 from face_parser.visualize import apply_colormap
@@ -22,6 +25,8 @@ plt.imshow(segmentation_mask_colored)
 
 ### 2.1. FaceBoxesV2
 
+![](images/obama_face_boxes_v2.jpg)
+
 ```python
 from face_parser.bounding_boxes.face_boxes_v2 import FaceBoxesV2
 
@@ -38,6 +43,8 @@ plt.imshow(img)
 ## 3. Facial Landmarks
 
 ### 3.1. PIPNet
+
+![](images/obama_pipnet.jpg)
 
 ```python
 from face_parser.landmark_detection.pipnet import PIPNet
