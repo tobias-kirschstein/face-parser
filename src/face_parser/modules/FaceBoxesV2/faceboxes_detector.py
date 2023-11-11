@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple, List
@@ -32,7 +33,9 @@ class DetectedBBox:
 
 class FaceBoxesDetector(Detector):
     def __init__(self):
-        ckpt_path = f"{Path().home()}/.cache/torch/face-parser/FaceBoxesV2.pth"
+        ckpt_folder = f"{Path().home()}/.cache/torch/face-parser"
+        ckpt_path = f"{ckpt_folder}/FaceBoxesV2.pth"
+        os.makedirs(ckpt_folder, exist_ok=True)
         # Download path from PIPNet repository:
         # https://github.com/jhb86253817/PIPNet/blob/master/FaceBoxesV2/weights/FaceBoxesV2.pth
         download_path = "https://github.com/jhb86253817/PIPNet/raw/master/FaceBoxesV2/weights/FaceBoxesV2.pth"
