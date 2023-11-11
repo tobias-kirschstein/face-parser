@@ -18,9 +18,9 @@ except ModuleNotFoundError:
 
     cwd = os.getcwd()
     new_wd = Path(inspect.getfile(face_parser)).parent.parent#.parent
-    cmd = f"python face_parser/modules/FaceBoxesV2/utils/build.py build_ext --inplace"
+    cmd = ["python", "face_parser/modules/FaceBoxesV2/utils/build.py", "build_ext", "--inplace"]
     os.chdir(new_wd)
-    print(f"Running: {cmd}")
+    print(f"Running: {' '.join(cmd)}")
     print(f"From directory: {new_wd}")
     # subprocess.call(f"python {Path(__file__).parent}/build.py build_ext --inplace")
     subprocess.call(cmd)

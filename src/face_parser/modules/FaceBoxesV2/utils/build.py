@@ -8,6 +8,7 @@
 # --------------------------------------------------------
 
 import os
+import sys
 from os.path import join as pjoin
 import numpy as np
 from distutils.core import setup
@@ -43,8 +44,7 @@ ext_modules = [
     Extension(
         "face_parser.modules.FaceBoxesV2.utils.nms.cpu_nms",
         ["face_parser/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
-        extra_compile_args={'gcc': ["-Wno-cpp", "-Wno-unused-function"]},
-        # extra_compile_args=["-Wno-cpp", "-Wno-unused-function"],
+        extra_compile_args=["-Wno-cpp", "-Wno-unused-function"] if sys.platform == 'linux' else None,
         include_dirs=[numpy_include]
     )
 ]
