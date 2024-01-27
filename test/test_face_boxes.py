@@ -16,7 +16,7 @@ class FaceBoxTest(VisionTestCase):
         img = (img * 255).int().numpy()
 
         detector = FaceBoxesV2()
-        detector = detector.cuda()
+        # detector = detector.cuda()
         my_thresh = 0.6
 
         detections = detector.detect(img, my_thresh)
