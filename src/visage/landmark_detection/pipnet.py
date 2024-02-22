@@ -9,12 +9,12 @@ from PIL import Image
 from torch import nn
 from torchvision.transforms import transforms
 
-import face_parser.modules.PIPNet
-from face_parser.landmark_detection.pipnet_config import PIPNetConfig, PIPNet_WFLW_r18_config
-from face_parser.modules.FaceBoxesV2.faceboxes_detector import DetectedBBox
-from face_parser.modules.PIPNet.lib.functions import get_meanface, forward_pip
-from face_parser.modules.PIPNet.lib.mobilenetv3 import mobilenetv3_large
-from face_parser.modules.PIPNet.lib.networks import Pip_resnet18, Pip_resnet50, Pip_resnet101, Pip_mbnetv2, Pip_mbnetv3
+import visage.modules.PIPNet
+from visage.landmark_detection.pipnet_config import PIPNetConfig, PIPNet_WFLW_r18_config
+from visage.modules.FaceBoxesV2.faceboxes_detector import DetectedBBox
+from visage.modules.PIPNet.lib.functions import get_meanface, forward_pip
+from visage.modules.PIPNet.lib.mobilenetv3 import mobilenetv3_large
+from visage.modules.PIPNet.lib.networks import Pip_resnet18, Pip_resnet50, Pip_resnet101, Pip_mbnetv2, Pip_mbnetv3
 
 
 class PIPNet(nn.Module):
@@ -64,7 +64,7 @@ class PIPNet(nn.Module):
         self._preprocess = transforms.Compose(
             [transforms.Resize((self._cfg.input_size, self._cfg.input_size)), transforms.ToTensor(), self._normalize])
 
-        meanface_path = f"{Path(inspect.getfile(face_parser.modules.PIPNet)).parent}/meanfaces/{self._cfg.meanface_path}"
+        meanface_path = f"{Path(inspect.getfile(visage.modules.PIPNet)).parent}/meanfaces/{self._cfg.meanface_path}"
         meanface_indices, reverse_index1, reverse_index2, max_len = get_meanface(meanface_path, self._cfg.num_nb)
 
         self._meanface_indices = meanface_indices

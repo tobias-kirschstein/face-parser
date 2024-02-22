@@ -2,7 +2,7 @@ from typing import List
 
 import numpy as np
 
-from face_parser.modules.FaceBoxesV2.faceboxes_detector import FaceBoxesDetector, DetectedBBox
+from visage.modules.FaceBoxesV2.faceboxes_detector import FaceBoxesDetector, DetectedBBox
 
 
 class FaceBoxesV2(FaceBoxesDetector):

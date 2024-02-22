@@ -7,8 +7,8 @@
 ![](images/obama_bisenet.jpg)
 
 ```python
-from face_parser.bisenet import BiSeNetFaceParser
-from face_parser.visualize import apply_colormap
+from visage.bisenet import BiSeNetFaceParser
+from visage.visualize import apply_colormap
 
 img = load_img()  # torch.Tensor [3, H, W] in range [-1, 1]
 
@@ -28,7 +28,7 @@ plt.imshow(segmentation_mask_colored)
 ![](images/obama_face_boxes_v2.jpg)
 
 ```python
-from face_parser.bounding_boxes.face_boxes_v2 import FaceBoxesV2
+from visage.bounding_boxes.face_boxes_v2 import FaceBoxesV2
 
 img = load_img()  # np.ndarray [H, W, 3] in range [0, 255]
 
@@ -47,10 +47,10 @@ plt.imshow(img)
 ![](images/obama_pipnet.jpg)
 
 ```python
-from face_parser.landmark_detection.pipnet import PIPNet
+from visage.landmark_detection.pipnet import PIPNet
 
 img = load_img()  # np.ndarray [H, W, 3] in range [0, 255]
-detected_bboxes = ... # <- from step 2.
+detected_bboxes = ...  # <- from step 2.
 
 pip_net = PIPNet()
 landmarks = pip_net.forward(img, detected_bboxes[0])

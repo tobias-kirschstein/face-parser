@@ -8,10 +8,10 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 import torchvision.models as models
-from face_parser.modules.FaceBoxesV2.faceboxes_detector import FaceBoxesDetector
-from face_parser.modules.PIPNet.lib.functions import get_meanface, forward_pip
-from face_parser.modules.PIPNet.lib.mobilenetv3 import mobilenetv3_large
-from face_parser.modules.PIPNet.lib.networks import Pip_resnet18, Pip_resnet50, Pip_resnet101, Pip_mbnetv2, Pip_mbnetv3
+from visage.modules.FaceBoxesV2.faceboxes_detector import FaceBoxesDetector
+from visage.modules.PIPNet.lib.functions import get_meanface, forward_pip
+from visage.modules.PIPNet.lib.mobilenetv3 import mobilenetv3_large
+from visage.modules.PIPNet.lib.networks import Pip_resnet18, Pip_resnet50, Pip_resnet101, Pip_mbnetv2, Pip_mbnetv3
 
 
 def demo_image(images, net, preprocess, cfg, input_size, net_stride, num_nb, use_gpu, device):

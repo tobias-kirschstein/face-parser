@@ -8,12 +8,12 @@ import requests
 import torch
 from torch import nn
 
-from face_parser.modules.FaceBoxesV2.detector import Detector
-from face_parser.modules.FaceBoxesV2.utils.box_utils import decode
-from face_parser.modules.FaceBoxesV2.utils.config import cfg
-from face_parser.modules.FaceBoxesV2.utils.faceboxes import FaceBoxesV2Internal
-from face_parser.modules.FaceBoxesV2.utils.nms_wrapper import nms
-from face_parser.modules.FaceBoxesV2.utils.prior_box import PriorBox
+from visage.modules.FaceBoxesV2.detector import Detector
+from visage.modules.FaceBoxesV2.utils.box_utils import decode
+from visage.modules.FaceBoxesV2.utils.config import cfg
+from visage.modules.FaceBoxesV2.utils.faceboxes import FaceBoxesV2Internal
+from visage.modules.FaceBoxesV2.utils.nms_wrapper import nms
+from visage.modules.FaceBoxesV2.utils.prior_box import PriorBox
 
 
 @dataclass

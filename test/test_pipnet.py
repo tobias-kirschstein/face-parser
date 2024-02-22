@@ -2,8 +2,8 @@ import cv2
 from matplotlib import pyplot as plt
 
 from base import VisionTestCase
-from face_parser.bounding_boxes.face_boxes_v2 import FaceBoxesV2
-from face_parser.landmark_detection.pipnet import PIPNet
+from visage.bounding_boxes.face_boxes_v2 import FaceBoxesV2
+from visage.landmark_detection.pipnet import PIPNet
 
 
 class PIPNetTest(VisionTestCase):

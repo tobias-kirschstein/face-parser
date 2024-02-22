@@ -7,7 +7,7 @@ import torch
 from PIL import Image
 from torchvision.transforms import PILToTensor
 
-import face_parser
+import visage
 
 IMAGE_URL_OBAMA = "https://upload.wikimedia.org/wikipedia/commons/f/f9/Obama_portrait_crop.jpg"
 
@@ -19,7 +19,7 @@ class VisionTestCase(TestCase):
                          normalize: bool = True,
                          resize: Optional[int] = None,
                          keep_aspect_ratio: bool = True) -> torch.Tensor:
-        pil_img = Image.open(f"{Path(inspect.getfile(face_parser)).parent.parent.parent}/images/obama.jpg")
+        pil_img = Image.open(f"{Path(inspect.getfile(visage)).parent.parent.parent}/images/obama.jpg")
 
         if resize is not None:
             if keep_aspect_ratio:

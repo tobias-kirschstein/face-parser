@@ -14,10 +14,10 @@ except ModuleNotFoundError:
     # Ideally, this would be a post-install script, but there does not seem to be a good way
     import os
     import subprocess
-    import face_parser
+    import visage
 
     cwd = os.getcwd()
-    new_wd = Path(inspect.getfile(face_parser)).parent.parent#.parent
+    new_wd = Path(inspect.getfile(visage)).parent.parent#.parent
     cmd = ["python", "face_parser/modules/FaceBoxesV2/utils/build.py", "build_ext", "--inplace"]
     os.chdir(new_wd)
     print(f"Running: {' '.join(cmd)}")

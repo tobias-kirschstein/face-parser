@@ -2,8 +2,8 @@ import torch
 from matplotlib import pyplot as plt
 
 from base import VisionTestCase
-from face_parser.bisenet import BiSeNetFaceParser
-from face_parser.visualize import apply_colormap
+from visage.bisenet import BiSeNetFaceParser
+from visage.visualize import apply_colormap
 
 
 class BiSeNetTest(VisionTestCase):
