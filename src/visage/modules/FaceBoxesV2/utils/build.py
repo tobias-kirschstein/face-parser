@@ -42,8 +42,8 @@ class custom_build_ext(build_ext):
 
 ext_modules = [
     Extension(
-        "face_parser.modules.FaceBoxesV2.utils.nms.cpu_nms",
-        ["face_parser/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
+        "visage.modules.FaceBoxesV2.utils.nms.cpu_nms",
+        ["visage/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
         extra_compile_args=["-Wno-cpp", "-Wno-unused-function"] if sys.platform == 'linux' else None,
         include_dirs=[numpy_include]
     )
