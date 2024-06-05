@@ -58,8 +58,8 @@ class PairedImageEvaluator:
         self._exclude_lpips = exclude_lpips
 
     def evaluate(self, predictions: List[np.ndarray], targets: List[np.ndarray]) -> PairedImageMetrics:
-        predictions_torch = [Img.from_numpy(prediction).to_torch().img for prediction in predictions]
-        targets_torch = [Img.from_numpy(target).to_torch().img for target in targets]
+        predictions_torch = [Img.from_numpy(prediction).to_torch().img.float() for prediction in predictions]
+        targets_torch = [Img.from_numpy(target).to_torch().img.float() for target in targets]
 
         # Exclude targets that are all 0s
         proper_target_mask = [~((target == 0) | (target == 128)).all(axis=-1).all(axis=-1).all(axis=-1)
