@@ -29,6 +29,24 @@ class PairedImageMetrics:
             mse=self.mse + other.mse if self.mse is not None and other.mse is not None else None,
         )
 
+    def __sub__(self, other: 'PairedImageMetrics') -> 'PairedImageMetrics':
+        return PairedImageMetrics(
+            psnr=self.psnr - other.psnr,
+            ssim=self.ssim - other.ssim,
+            lpips=self.lpips - other.lpips,
+            multi_scale_ssim=self.multi_scale_ssim - other.multi_scale_ssim if self.multi_scale_ssim is not None and other.multi_scale_ssim is not None else None,
+            mse=self.mse - other.mse if self.mse is not None and other.mse is not None else None,
+        )
+
+    def __pow__(self, power: int, modulo=None)-> 'PairedImageMetrics':
+        return PairedImageMetrics(
+            psnr=self.psnr.__pow__(power, modulo),
+            ssim=self.ssim.__pow__(power, modulo),
+            lpips=self.lpips.__pow__(power, modulo),
+            multi_scale_ssim=self.multi_scale_ssim.__pow__(power, modulo) if self.multi_scale_ssim is not None else None,
+            mse=self.mse.__pow__(power, modulo) if self.mse is not None else None,
+        )
+
     def __radd__(self, other) -> 'PairedImageMetrics':
         if other == 0:
             return self
