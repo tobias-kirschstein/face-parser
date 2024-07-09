@@ -61,3 +61,22 @@ for x, y in landmarks:
 
 plt.imshow(img)
 ```
+
+## 4. Background Matting
+
+### 4.1. BackgroundMattingV2
+
+```python
+from visage.matting.background_matting_v2 import BackgroundMattingV2
+
+img = load_img(...)  # np.ndarray [H, W, 3] in range [0, 255]
+bg_img = load_img(...)  # np.ndarray [H, W, 3] in range [0, 255]. Should be the same viewpoint but without the foreground
+
+background_matter = BackgroundMattingV2()
+alpha_images = background_matter.parse([img], [bg_img])
+
+plt.imshow(alpha_images[0])
+```
+| Image                              | Background                        | Foreground Mask                            |
+|------------------------------------|-----------------------------------|--------------------------------------------|
+  | ![](images/tobi_cam_222200038.jpg) | ![](images/tobi_bg_222200038.jpg) | ![](images/tobi_background_matting_v2.png) |
