@@ -105,6 +105,7 @@ class BackgroundMattingV2:
         prepared_images = torch.stack(prepared_images)
         prepared_background_images = torch.stack(prepared_background_images)
 
+        alpha_images = []
         with torch.no_grad():
             if self._config.model_type == 'mattingbase':
                 pha, fgr, err, _ = self._model(prepared_images, prepared_background_images)
@@ -112,15 +113,12 @@ class BackgroundMattingV2:
                 pha, fgr, _, _, err, ref = self._model(prepared_images, prepared_background_images)
 
                 for i, original_size in enumerate(original_sizes):
-                    pha[i] = pha[i, :, :original_size[1], :original_size[0]]
+                    alpha_image = pha[i, 0, :original_size[1], :original_size[0]]
+                    alpha_images.append(alpha_image.cpu().numpy())
                     # fgr[i] = fgr[i, :, :original_size[1], :original_size[0]]
                     # err[i] = err[i, :, :original_size[1], :original_size[0]]
             else:
                 raise ValueError(f"Unknown model_type: {self._config.model_type}")
-
-        alpha_images = pha[:, 0].cpu().numpy()
-        # fgr = fgr.cpu()
-        # err = err.cpu()
 
         return alpha_images
 

@@ -33,15 +33,18 @@ class custom_build_ext(build_ext):
         build_ext.build_extensions(self)
 
 
-ext_modules = [
-    Extension(
-        "visage.modules.FaceBoxesV2.utils.nms.cpu_nms",
-        ["src/visage/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"],
-        extra_compile_args=["-Wno-cpp", "-Wno-unused-function"] if sys.platform == 'linux' else None,
-    )
-]
 
 if __name__ == "__main__":
+    # This is a very hacky way to implement a Python version switch for Cython
+    # The underlying problem is that in Python 3.9 onwards, numpy>=2 is available which deprecated the use of np.int_t
+    # However, in Python 3.8 with numpy<2, the replacement np.int64_t does not work as there are differences between Windows and Linux
+    # The nice solution would be to add a simple compiler directive in the .pyx file which checks for the Python version. This seems to be not so simple.
+    # Therefore, we copied the whole file, replaced the lines in question, and then select already in setup.py which file should be compiled
+    if sys.version_info >= (3, 9):
+        cpu_nms_path = "src/visage/modules/FaceBoxesV2/utils/nms/cpu_nms_py39.pyx"
+    else:
+        cpu_nms_path = "src/visage/modules/FaceBoxesV2/utils/nms/cpu_nms.pyx"
+
     setuptools.setup(
         include_package_data=True,
         # Important to also install .c/.cu/.hpp/.pyx files for nms
@@ -49,7 +52,13 @@ if __name__ == "__main__":
         package_data={'': ['*.c', '*.pyx', '*.hpp', '*.cu', '*.txt']},
 
         # For building NMS module
-        ext_modules=ext_modules,
+        ext_modules=[
+            Extension(
+                "visage.modules.FaceBoxesV2.utils.nms.cpu_nms",
+                [cpu_nms_path],
+                extra_compile_args=["-Wno-cpp", "-Wno-unused-function"] if sys.platform == 'linux' else None,
+            )
+        ],
         cmdclass={'build_ext': custom_build_ext},
         setup_requires=['numpy'],
     )
