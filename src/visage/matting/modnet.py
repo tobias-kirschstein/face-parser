@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import torch
 from torch import nn
 from torchvision import transforms
@@ -6,7 +8,7 @@ import torch.nn.functional as F
 class MODNetMatter:
 
     def __init__(self):
-        ckpt_path = "C:/Users/kirschstein/Downloads/modnet_photographic_portrait_matting.ckpt"
+        ckpt_path = f"{Path.home()}.cache/visage/MODNet/modnet_photographic_portrait_matting.ckpt"
 
         # define image to tensor transform
         self._transform = transforms.Compose(
