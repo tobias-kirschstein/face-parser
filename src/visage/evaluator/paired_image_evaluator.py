@@ -62,18 +62,29 @@ class PairedImageMetrics:
             mse=self.mse / scalar if self.mse is not None else None,
         )
 
+    def __mul__(self, scalar: float) -> 'PairedImageMetrics':
+        return PairedImageMetrics(
+            psnr=self.psnr * scalar,
+            ssim=self.ssim * scalar,
+            lpips=self.lpips * scalar,
+            multi_scale_ssim=self.multi_scale_ssim * scalar if self.multi_scale_ssim is not None else None,
+            mse=self.mse * scalar if self.mse is not None else None,
+        )
+
 
 class PairedImageEvaluator:
 
-    def __init__(self, exclude_lpips: bool = False):
+    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False):
         self._psnr_evaluator = PSNREvaluator()
         self._ssim_evaluator = SSIMEvaluator()
-        self._multi_scale_ssim_evaluator = MultiScaleSSIMEvaluator()
+        if not exclude_mssim:
+            self._multi_scale_ssim_evaluator = MultiScaleSSIMEvaluator()
         if not exclude_lpips:
             self._lpips_evaluator = LPIPSEvaluator()
         self._mse_evaluator = MSELoss()
 
         self._exclude_lpips = exclude_lpips
+        self._exclude_mssim = exclude_mssim
 
     def evaluate(self, predictions: List[np.ndarray], targets: List[np.ndarray]) -> PairedImageMetrics:
         predictions_torch = [Img.from_numpy(prediction).to_torch().img.float() for prediction in predictions]
@@ -98,7 +109,10 @@ class PairedImageEvaluator:
     def _evaluate(self, predictions_torch: torch.Tensor, targets_torch: torch.Tensor) -> PairedImageMetrics:
         psnr = self._psnr_evaluator(predictions_torch, targets_torch)
         ssim = self._ssim_evaluator(predictions_torch, targets_torch)
-        multi_scale_ssim = self._multi_scale_ssim_evaluator(predictions_torch, targets_torch)
+        if self._exclude_mssim:
+            multi_scale_ssim = torch.tensor(-1)
+        else:
+            multi_scale_ssim = self._multi_scale_ssim_evaluator(predictions_torch, targets_torch)
         if self._exclude_lpips:
             lpips = torch.tensor(-1)
         else:

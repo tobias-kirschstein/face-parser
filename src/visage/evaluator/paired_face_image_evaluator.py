@@ -45,11 +45,22 @@ class PairedFaceImageMetrics(PairedImageMetrics):
             apd=self.apd / scalar if self.apd is not None else None,
         )
 
+    def __mul__(self, scalar: float) -> 'PairedFaceImageMetrics':
+        paired_image_metrics = super().__truediv__(scalar)
+        return PairedFaceImageMetrics(
+            **asdict(paired_image_metrics),
+            akd=self.akd * scalar if self.akd is not None else None,
+            akd_face=self.akd_face * scalar if self.akd_face is not None else None,
+            csim=self.csim * scalar if self.csim is not None else None,
+            aed=self.aed * scalar if self.aed is not None else None,
+            apd=self.apd * scalar if self.apd is not None else None,
+        )
+
 
 class PairedFaceImageEvaluator(PairedImageEvaluator):
 
-    def __init__(self, exclude_lpips: bool = False):
-        super().__init__(exclude_lpips=exclude_lpips)
+    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False):
+        super().__init__(exclude_lpips=exclude_lpips, exclude_mssim=exclude_mssim)
         self._keypoint_evaluator = KeypointEvaluator()
         self._csim_evaluator = CSIMEvaluator()
 
