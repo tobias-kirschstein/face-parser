@@ -33,8 +33,11 @@ class PairedVideoEvaluator:
         self._evaluation_fps = fps
 
     def evaluate(self, prediction_video: List[np.ndarray], target_video: List[np.ndarray]) -> PairedVideoMetric:
-        prediction_video = np.stack(prediction_video)  # [T, H, W, C]
-        target_video = np.stack(target_video)  # [T, H, W, C]
+        if not isinstance(prediction_video, np.ndarray):
+            prediction_video = np.stack(prediction_video)  # [T, H, W, C]
+        if not isinstance(target_video, np.ndarray):
+            target_video = np.stack(target_video)  # [T, H, W, C]
+
         jod, _ = self._jod_evaluator.predict(prediction_video, target_video, dim_order="FHWC",
                                              frames_per_second=max(4.1, self._evaluation_fps))
 
