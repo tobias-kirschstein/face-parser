@@ -62,7 +62,7 @@ class PairedImageMetrics:
             mse=self.mse / scalar if self.mse is not None else None,
         )
 
-    def __mul__(self, scalar: float) -> 'PairedImageMetrics':
+    def __rmul__(self, scalar: float) -> 'PairedImageMetrics':
         return PairedImageMetrics(
             psnr=self.psnr * scalar,
             ssim=self.ssim * scalar,
@@ -70,6 +70,9 @@ class PairedImageMetrics:
             multi_scale_ssim=self.multi_scale_ssim * scalar if self.multi_scale_ssim is not None else None,
             mse=self.mse * scalar if self.mse is not None else None,
         )
+
+    def __mul__(self, scalar: float) -> 'PairedImageMetrics':
+        return scalar * self.__rmul__(scalar)
 
 
 class PairedImageEvaluator:

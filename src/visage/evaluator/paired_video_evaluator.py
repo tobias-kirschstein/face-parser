@@ -25,6 +25,14 @@ class PairedVideoMetric:
             jod=self.jod / scalar,
         )
 
+    def __rmul__(self, scalar: float) -> 'PairedVideoMetric':
+        return PairedVideoMetric(
+            jod=self.jod * scalar,
+        )
+
+    def __mul__(self, scalar: float) -> 'PairedVideoMetric':
+        return scalar * self.__rmul__(scalar)
+
 
 class PairedVideoEvaluator:
 

@@ -45,8 +45,8 @@ class PairedFaceImageMetrics(PairedImageMetrics):
             apd=self.apd / scalar if self.apd is not None else None,
         )
 
-    def __mul__(self, scalar: float) -> 'PairedFaceImageMetrics':
-        paired_image_metrics = super().__truediv__(scalar)
+    def __rmul__(self, scalar: float) -> 'PairedFaceImageMetrics':
+        paired_image_metrics = super().__rmul__(scalar)
         return PairedFaceImageMetrics(
             **asdict(paired_image_metrics),
             akd=self.akd * scalar if self.akd is not None else None,
@@ -55,6 +55,9 @@ class PairedFaceImageMetrics(PairedImageMetrics):
             aed=self.aed * scalar if self.aed is not None else None,
             apd=self.apd * scalar if self.apd is not None else None,
         )
+
+    def __mul__(self, scalar: float) -> 'PairedFaceImageMetrics':
+        return scalar * self.__rmul__(scalar)
 
 
 class PairedFaceImageEvaluator(PairedImageEvaluator):
