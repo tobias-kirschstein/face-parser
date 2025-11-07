@@ -2,14 +2,15 @@ import torch
 from elias.util.batch import batchify_sliced
 from torch import nn
 from torchmetrics.image import LearnedPerceptualImagePatchSimilarity
+from typing import Literal
 
 
 class LPIPSEvaluator(nn.Module):
 
-    def __init__(self, batch_size: int = 16):
+    def __init__(self, batch_size: int = 16, net_type: Literal["vgg", "alex", "squeeze"] = "alex"):
         super(LPIPSEvaluator, self).__init__()
         self._batch_size = batch_size
-        self._lpips_evaluator = LearnedPerceptualImagePatchSimilarity(normalize=True)
+        self._lpips_evaluator = LearnedPerceptualImagePatchSimilarity(normalize=True, net_type=net_type)
 
     def __call__(self, predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         lpipses = []

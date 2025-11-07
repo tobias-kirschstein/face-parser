@@ -77,13 +77,13 @@ class PairedImageMetrics:
 
 class PairedImageEvaluator:
 
-    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False):
+    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False, lpips_net_type: Literal["vgg", "alex", "squeeze"] = "alex"):
         self._psnr_evaluator = PSNREvaluator()
         self._ssim_evaluator = SSIMEvaluator()
         if not exclude_mssim:
             self._multi_scale_ssim_evaluator = MultiScaleSSIMEvaluator()
         if not exclude_lpips:
-            self._lpips_evaluator = LPIPSEvaluator()
+            self._lpips_evaluator = LPIPSEvaluator(net_type=lpips_net_type)
         self._mse_evaluator = MSELoss()
 
         self._exclude_lpips = exclude_lpips

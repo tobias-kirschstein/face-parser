@@ -62,8 +62,8 @@ class PairedFaceImageMetrics(PairedImageMetrics):
 
 class PairedFaceImageEvaluator(PairedImageEvaluator):
 
-    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False):
-        super().__init__(exclude_lpips=exclude_lpips, exclude_mssim=exclude_mssim)
+    def __init__(self, exclude_lpips: bool = False, exclude_mssim: bool = False, lpips_net_type: Literal["vgg", "alex", "squeeze"] = "alex"):
+        super().__init__(exclude_lpips=exclude_lpips, exclude_mssim=exclude_mssim, lpips_net_type=lpips_net_type)
         self._keypoint_evaluator = KeypointEvaluator()
         self._csim_evaluator = CSIMEvaluator()
 
