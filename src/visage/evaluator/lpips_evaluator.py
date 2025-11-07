@@ -1,8 +1,9 @@
+from typing import Literal
+
 import torch
 from elias.util.batch import batchify_sliced
 from torch import nn
 from torchmetrics.image import LearnedPerceptualImagePatchSimilarity
-from typing import Literal
 
 
 class LPIPSEvaluator(nn.Module):

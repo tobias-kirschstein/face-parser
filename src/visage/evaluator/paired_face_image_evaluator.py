@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-from typing import Optional, List
+from typing import Optional, List, Literal
 
 import numpy as np
 import torch
